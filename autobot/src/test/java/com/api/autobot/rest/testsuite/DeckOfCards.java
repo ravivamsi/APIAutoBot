@@ -5,7 +5,12 @@ package com.api.autobot.rest.testsuite;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
@@ -13,6 +18,8 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.api.autobot.configuration.PathConfiguration;
+import com.api.autobot.rest.get.HttpGet200;
+import com.api.autobot.rest.get.HttpGet200Model;
 import com.api.autobot.utilities.DateStringConverter;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
@@ -26,43 +33,112 @@ import io.restassured.response.Response;
  *
  */
 public class DeckOfCards {
-	
-	
+
 	PathConfiguration pathConfig = new PathConfiguration();
 	
 	ExtentReports extentReports;
 	
 	ExtentTest test;
 	
-	String reportDirectoryPath = pathConfig.getReportsDirectory()+this.getClass().getName()+File.separator+DateStringConverter.dateStringConverter()+File.separator;
+	String reportDirectoryPath = pathConfig.getReportsDirectory()+this.getClass().getSimpleName()+File.separator+DateStringConverter.dateStringConverter()+File.separator;
 	
+	String host = "https://deckofcardsapi.com";
+	
+	
+	
+	HttpGet200 httpGet200 = new HttpGet200();
 //	Report 
 	
 	
 	@BeforeTest
 	public void init() throws Exception{
-		System.out.print("The output directory of the report is "+ reportDirectoryPath);
-//		extentReports = new ExtentReports(reportDirectoryPath+this.getClass().getName()+"Report.html");
-//		test = extentReports.startTest(this.getClass().getName()+"Report");
+		System.out.println("The output directory of the report is "+ reportDirectoryPath);
+		extentReports = new ExtentReports(reportDirectoryPath+this.getClass().getSimpleName()+"Report.html");
+		
 
 	}
 	
 	
-	@Test
-	public void shuffleADeck(){
+	@Test(enabled=true)
+	public void shuffleADeck() throws ParseException{
 		
-		Response response = RestAssured.get("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count="+"1");
 		
-		System.out.println("Response Time" +response.getTime());
-		System.out.println("Response Time" +response.getStatusCode());
-		System.out.println("Response Time" +response.getBody());
-		System.out.println("Response Time" +response.getContentType());
-		System.out.println("Response Time" +response.getHeaders());
-		System.out.println("Response Time" +response.getSessionId());
-		System.out.println("Get Status Line" +response.getStatusLine());
+		HttpGet200Model httpGet200Model = httpGet200.apiTester( extentReports,  test,  "shuffleADeck", "This Test will cover the endpoint which will shuffle the deck based on the deck count", host, "/api/deck/new/shuffle/?deck_count=1" );
+		
+//		Add Custom Assertions
+
+		if(httpGet200Model.getJsonResponseObject().isEmpty()){
+			httpGet200Model.getTest().log(LogStatus.FAIL, "The response is null");
+		}else{
+			
+			
+			if(httpGet200Model.getJsonResponseObject().get("shuffled").equals(true)){
+				httpGet200Model.getTest().log(LogStatus.PASS, "The actual value for the key is as expected "+httpGet200Model.getJsonResponseObject().get("shuffled"));
+			}else{
+				httpGet200Model.getTest().log(LogStatus.FAIL, "The actual value for the key is not as expected ");
+			}
+			
+			
+			if(httpGet200Model.getJsonResponseObject().get("success").equals(true)){
+				httpGet200Model.getTest().log(LogStatus.PASS, "The actual value for the key is as expected "+httpGet200Model.getJsonResponseObject().get("success"));
+			}else{
+				httpGet200Model.getTest().log(LogStatus.FAIL, "The actual value for the key is not as expected ");
+			}
+		
+			
+			
+		}
+		
+		
+		
+//		End the Test
+		httpGet200Model.getExtentReports().endTest(httpGet200Model.getTest());
 			
 	}
 	
+	
+	
+	@Test(enabled=true)
+	public void drawACard() throws ParseException, MalformedURLException{
+		
+		URL urlDrawACard = new URL("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1");
+		
+		Response firstCallResponse = RestAssured.get(urlDrawACard);
+		
+		
+		JSONParser jsonpParser = new JSONParser();
+		JSONObject jsonResponseFirstCallObject = (JSONObject) jsonpParser.parse(firstCallResponse.body().asString());
+		
+		
+		
+		HttpGet200Model httpGet200ModelDrawCard = httpGet200.apiTester( extentReports,  test,  "drawACard", "This Test will cover the endpoint which will shuffle the deck based on the deck count", host, "/api/deck/"+jsonResponseFirstCallObject.get("deck_id").toString()+"/draw/?count=2" );
+		
+//		Add Custom Assertions
+
+		if(httpGet200ModelDrawCard.getJsonResponseObject().isEmpty()){
+			httpGet200ModelDrawCard.getTest().log(LogStatus.FAIL, "The response is null");
+		}else{
+			
+			
+			if(httpGet200ModelDrawCard.getJsonResponseObject().get("deck_id").toString().equals(jsonResponseFirstCallObject.get("deck_id").toString())){
+				httpGet200ModelDrawCard.getTest().log(LogStatus.PASS, "The actual value for the key is as expected "+httpGet200ModelDrawCard.getJsonResponseObject().get("deck_id"));
+			}else{
+				httpGet200ModelDrawCard.getTest().log(LogStatus.FAIL, "The actual value for the key is not as expected ");
+			}
+			
+			
+			if(httpGet200ModelDrawCard.getJsonResponseObject().get("success").equals(true)){
+				httpGet200ModelDrawCard.getTest().log(LogStatus.PASS, "The actual value for the key is as expected "+httpGet200ModelDrawCard.getJsonResponseObject().get("success"));
+			}else{
+				httpGet200ModelDrawCard.getTest().log(LogStatus.FAIL, "The actual value for the key is not as expected ");
+			}
+			
+		}
+		
+//		End the Test
+		httpGet200ModelDrawCard.getExtentReports().endTest(httpGet200ModelDrawCard.getTest());
+			
+	}
 //	Number of Tests
 	
 	/*
@@ -251,8 +327,8 @@ public class DeckOfCards {
 	@AfterTest
 	public void endReport() throws Exception{
 			
-//			extentReports.flush();
-//			extentReports.close();
+			extentReports.flush();
+			extentReports.close();
 			
 	}
 }
