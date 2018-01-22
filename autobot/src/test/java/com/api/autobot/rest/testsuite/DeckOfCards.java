@@ -101,7 +101,7 @@ public class DeckOfCards {
 	@Test(enabled=true)
 	public void drawACard() throws ParseException, MalformedURLException{
 		
-		URL urlDrawACard = new URL("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1");
+		URL urlDrawACard = new URL("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=2");
 		
 		Response firstCallResponse = RestAssured.get(urlDrawACard);
 		
