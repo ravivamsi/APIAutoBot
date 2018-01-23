@@ -21,7 +21,6 @@ import io.restassured.specification.RequestSpecification;
  *
  */
 public class HttpPut204 {
-	
 
 
 	public HttpPut204Model apiTester(ExtentReports extentReports, ExtentTest test, String testCaseName, String testCaseDescription, String host, String path, JSONObject payload, String contentType) throws ParseException {
