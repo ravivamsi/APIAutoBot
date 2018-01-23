@@ -16,6 +16,9 @@ public class HttpStatusCodes {
 //	Http 201 Record Created
 	public static Integer statusCode201 = 201;
 	
+//	Http 204 Sucess No Content
+	public static Integer statusCode204 =204;
+	
 //	Http 206 Partial Content
 	public static Integer statusCode206 = 206;
 	
