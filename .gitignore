@@ -1,2 +1,2 @@
-/autobot/target*
-/autobot/test-output
+/autobot/target/*
+/autobot/test-output/*
