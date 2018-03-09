@@ -69,5 +69,24 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.5</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/info.cukes/cucumber-java -->
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>1.2.5</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/net.sf.grinder/grinder-core -->
+<dependency>
+    <groupId>net.sf.grinder</groupId>
+    <artifactId>grinder-core</artifactId>
+    <version>3.11</version>
+</dependency>
+		
+<dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-java8</artifactId>
+    <version>2.3.1</version>
+    <scope>test</scope>
+</dependency>
 	</dependencies>
 </project>

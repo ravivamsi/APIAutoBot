@@ -4,7 +4,8 @@
 package com.api.autobot.utilities;
 
 import com.api.autobot.configuration.Environments;
-import com.api.autobot.configuration.Hosts;
+import com.api.autobot.configuration.Host;
+
 import com.api.autobot.configuration.Projects;
 
 /**
@@ -21,7 +22,7 @@ public class URLBuilder {
 			
 				case deckofcards:
 					
-					return Hosts.deckofcardshosttst;
+					return Host.deckofcardshosttst.getHost();
 					
 				case salesforce:
 					
@@ -42,7 +43,7 @@ public class URLBuilder {
 			
 			case deckofcards:
 				
-				return Hosts.deckofcardshosttst;
+				return Host.deckofcardshosttst.getHost();
 				
 			case salesforce:
 				
@@ -65,7 +66,7 @@ public class URLBuilder {
 			
 			case deckofcards:
 				
-				return Hosts.deckofcardshosttst;
+				return Host.deckofcardshosttst.getHost();
 				
 			case salesforce:
 				
@@ -88,7 +89,7 @@ public class URLBuilder {
 			
 			case deckofcards:
 				
-				return Hosts.deckofcardshosttst;
+				return Host.deckofcardshosttst.getHost();
 				
 			case salesforce:
 				
@@ -111,7 +112,7 @@ public class URLBuilder {
 			
 			case deckofcards:
 				
-				return Hosts.deckofcardshosttst;
+				return Host.deckofcardshosttst.getHost();
 				
 			case salesforce:
 				
@@ -134,7 +135,7 @@ public class URLBuilder {
 			
 			case deckofcards:
 				
-				return Hosts.deckofcardshosttst;
+				return Host.deckofcardshosttst.getHost();
 				
 			case salesforce:
 				
@@ -157,7 +158,7 @@ public class URLBuilder {
 			
 			case deckofcards:
 				
-				return Hosts.deckofcardshosttst;
+				return Host.deckofcardshosttst.getHost();
 				
 			case salesforce:
 				
@@ -180,7 +181,7 @@ public class URLBuilder {
 			
 			case deckofcards:
 				
-				return Hosts.deckofcardshosttst;
+				return Host.deckofcardshosttst.getHost();
 				
 			case salesforce:
 				
@@ -203,7 +204,7 @@ public class URLBuilder {
 			
 			case deckofcards:
 				
-				return Hosts.deckofcardshosttst;
+				return Host.deckofcardshosttst.getHost();
 				
 			case salesforce:
 				

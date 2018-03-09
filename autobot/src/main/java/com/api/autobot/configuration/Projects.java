@@ -9,17 +9,17 @@ package com.api.autobot.configuration;
  */
 public enum Projects {
 
-	deckofcards, salesforce, maxim, microservices, stocks;
-////	Project Values
-//	
-//	public static final String deckofcards = "deckofcards";
-//	
-//	public static final String salesforce = "salesforce";
-//	
-//	public static final String maxim = "maxim";
-//	
-//	public static final String microservices = "microservices";
-//	
-//	public static final String stocks = "stocks";
+	deckofcards("deckofcards"), salesforce("salesforce"), maxim("maxim"), microservices("microservices"), stocks("stocks");
+
+	private String project;
+	
+	Projects(String project){
+		this.project = project;
+	}
+	
+	public String getProject(){
+		return project;
+	}
+	
 
 }
